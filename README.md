@@ -159,15 +159,6 @@ OGG/FLAC 在 Windows 上可能没有解码器支持，建议使用 m4a、mp3 或
 | `src/audio.ts` | 音频 | 跨平台后端、常驻 PowerShell、音量/循环、进程清理 |
 | `src/assets.ts` | 资源 | `import.meta.url` 定位、文案解析、音频扫描与缓存 |
 
-### 学习路径
-
-1. **插件生命周期**：`index.ts` / `tui.tsx` → `Plugin.define` → `setup()` 返回 cleanup
-2. **Solid 响应式**：`createSignal`、store、`Show`，以及 slot render 中的响应式读取
-3. **OpenTUI**：`box` / `text` / `image` 组件、`RGBA`、鼠标事件
-4. **跨平台进程**：`spawn` + stdin 协议、Windows WinRT、macOS 进程组
-5. **事件驱动**：事件 ID 去重、会话级节流、子会话过滤
-6. **资源自包含**：`import.meta.url` + `assets/`，复制目录即可运行
-
 ## 项目结构
 
 ```text
