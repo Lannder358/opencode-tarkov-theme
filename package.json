@@ -13,6 +13,14 @@
     "tarkov",
     "escape-from-tarkov"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lannder358/opencode-tarkov-theme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lannder358/opencode-tarkov-theme/issues"
+  },
+  "homepage": "https://github.com/Lannder358/opencode-tarkov-theme#readme",
   "exports": {
     ".": "./index.ts",
     "./tui": "./tui.tsx",

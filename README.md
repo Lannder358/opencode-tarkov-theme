@@ -49,11 +49,9 @@ OpenCode 会自动发现 `plugins/` 下的插件目录，**不需要**修改 `op
 ### 方式二：git clone
 
 ```bash
-git clone https://github.com/<your-name>/opencode-tarkov-theme.git \
+git clone https://github.com/Lannder358/opencode-tarkov-theme.git \
   ~/.config/opencode/plugins/tarkov-theme
 ```
-
-把 `<your-name>` 换成实际的 GitHub 用户名。
 
 ### 方式三：npm（发布后可用）
 
