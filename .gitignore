@@ -1,0 +1,9 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+
+# Background music is not distributed with the repository (copyright).
+# Keep the directory, drop the audio files.
+assets/music/*
+!assets/music/.gitkeep
