@@ -131,6 +131,43 @@ OGG/FLAC 在 Windows 上可能没有解码器支持，建议使用 m4a、mp3 或
 | 设置页卡片 | `/tarkov` 对话框 |
 | 状态行随机文案 | 挂在 `prompt.footer.status` |
 
+## 技术栈
+
+| 分类 | 技术 | 用途 |
+| --- | --- | --- |
+| 语言 | TypeScript 5.9（strict） | 全部源码与类型约束 |
+| 运行时 | Bun（OpenCode 内置）、Node.js API | 直接执行 TS/TSX；文件、进程、路径 |
+| 插件框架 | OpenCode V2 Plugin API | `Plugin.define`、服务端 + TUI 双入口、生命周期 |
+| TUI 渲染 | OpenTUI 0.6 | slot 布局、文本/图片渲染、鼠标事件、主题 token |
+| 响应式 UI | SolidJS 1.9 | `createSignal`、`Show`、slot 的细粒度更新 |
+| 音频（Windows） | PowerShell + WinRT `MediaPlayer`（Media Foundation） | m4a/mp3 播放、音量、循环，无需 ffmpeg |
+| 音频（macOS） | `afplay` + `sh` 循环 + 进程组 | 播放与停止 |
+| 音频（Linux） | `ffplay` / `mpv` / `cvlc` | 后端探测与播放 |
+| 进程通信 | `node:child_process` + stdin/stdout | 常驻播放器、base64 路径协议、进程组清理 |
+| 图像处理 | OpenTUI `NativeImage` / `RGBA` | PNG 解码、alpha 合成主题背景 |
+| 状态与持久化 | OpenCode `storage` + Solid store | 设置持久化、跨实例同步 |
+| 事件系统 | OpenCode TUI event stream | 完成/失败/权限/工具失败/步骤事件 |
+| 交互 | keymap layer、dialog、鼠标事件 | slash 命令、音量滑块、桌宠左右键 |
+| 工程化 | `tsc --noEmit`、Git、GitHub Release | 类型检查、版本管理、分发 |
+
+### 代码导读
+
+| 文件 | 职责 | 关键点 |
+| --- | --- | --- |
+| `index.ts` | 服务端插件入口 | 只声明插件 ID；实际逻辑在 TUI 半区 |
+| `tui.tsx` | UI 与交互 | slot 注册、事件订阅、Solid signals、keymap、dialog、鼠标 |
+| `src/audio.ts` | 音频 | 跨平台后端、常驻 PowerShell、音量/循环、进程清理 |
+| `src/assets.ts` | 资源 | `import.meta.url` 定位、文案解析、音频扫描与缓存 |
+
+### 学习路径
+
+1. **插件生命周期**：`index.ts` / `tui.tsx` → `Plugin.define` → `setup()` 返回 cleanup
+2. **Solid 响应式**：`createSignal`、store、`Show`，以及 slot render 中的响应式读取
+3. **OpenTUI**：`box` / `text` / `image` 组件、`RGBA`、鼠标事件
+4. **跨平台进程**：`spawn` + stdin 协议、Windows WinRT、macOS 进程组
+5. **事件驱动**：事件 ID 去重、会话级节流、子会话过滤
+6. **资源自包含**：`import.meta.url` + `assets/`，复制目录即可运行
+
 ## 项目结构
 
 ```text
